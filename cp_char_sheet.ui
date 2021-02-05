@@ -570,7 +570,7 @@ padding-left: 2px;</string>
       <string>DEX</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="DexterityInput_2">
+    <widget class="QLineEdit" name="TechInput">
      <property name="geometry">
       <rect>
        <x>190</x>
@@ -599,7 +599,7 @@ border: none;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="DexterityLabel_2">
+    <widget class="QLabel" name="TechLabel">
      <property name="geometry">
       <rect>
        <x>190</x>
@@ -658,7 +658,7 @@ border: none;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="BodyLabel_2">
+    <widget class="QLineEdit" name="BodyInput">
      <property name="geometry">
       <rect>
        <x>430</x>
