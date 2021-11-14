@@ -6,13 +6,17 @@ class CPCharSheet(QtWidgets.QMainWindow):
         # Setup
         QtWidgets.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)    
+        self.ui.setupUi(self)   
+        self.ui.mdiArea.addSubWindow(self.ui.CharMain).showMaximized() 
+        self.ui.CharMain.setWindowTitle("Character Info & Stats")
         
         # Member variables
         #
         #        
         roles = {'Rockerboy': 'Charismatic Impact', 'Solo': 'Combat Awareness', 'Netrunner': 'Interface', 'Tech':  'Maker', 'Medtech': 'Medicine', 'Media': 'Credibility', 'Exec': 'Teamwork', 'Lawman': 'Backup', 'Fixer':'Operator', 'Nomad': 'Moto'} 
-        MAX_STAT_VALUE = 10 
+        MAX_STAT_VALUE = 8
+        MIN_STAT_VALUE = 2
+        TOTAL_POINTS = 62 # this will depend on rank of character as per the CP Core Rulebook pg 78
 
         # Member variables for making working with the UI easier
         # Avoids having to type self.ui every time
@@ -47,7 +51,20 @@ class CPCharSheet(QtWidgets.QMainWindow):
                 humanity_current.setText(totalHumanity)   
 
         def setMaxEmpathy(self):
-            empathy_current.setText(empathy_max.text())
+            max_emp = int(empathy_max.text())
+            if(max_emp > MAX_STAT_VALUE):
+                empathy_max.setText(str(MAX_STAT_VALUE))
+            else:
+                empathy_current.setText(empathy_max.text())
+
+        def setMaxStat(stat_input, stat):            
+            max_stat = int(stat)
+            if(max_stat > MAX_STAT_VALUE):
+                stat_input.setText(str(MAX_STAT_VALUE))
+                return
+            else:
+                stat.setText(stat.text())
+                return
 
         # Sets the role ability based on the role chosen
         def updateRoleAbility(self):
@@ -58,7 +75,7 @@ class CPCharSheet(QtWidgets.QMainWindow):
             # to do: check for cyberware, because some of them have a humanity_loss modifier
             # to do: add humanity reduction field & button somewhere to reduce in case of in-game event
         
-        def reduceMaxEmpathy(self, humanity_loss):
+        #def reduceMaxEmpathy(self, humanity_loss):
             # to do: if you're adding cyberware, your humanity drops as well as Empathy
             #           E.g.    empathy_max == 8
             #                   add a Neural Link (7 hl) and Kerenzikov (14 hl), humanity_loss == 21
@@ -72,6 +89,7 @@ class CPCharSheet(QtWidgets.QMainWindow):
         char_role.currentIndexChanged.connect(updateRoleAbility)    
         empathy_max.textChanged.connect(setMaxHumanity)
         empathy_max.textChanged.connect(setMaxEmpathy)
+        intelligence_input.textChanged.connect(lambda: setMaxStat(intelligence_input, intelligence_input.text()))
 
         # Operations on init
         #
