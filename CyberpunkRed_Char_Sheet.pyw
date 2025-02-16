@@ -1,4 +1,7 @@
 import sys
+
+from PyQt6 import QtWidgets
+
 from cp_char_sheet import *
 import Character
 
@@ -105,7 +108,7 @@ class CPCharSheet(QtWidgets.QMainWindow):
 
         def app_quit(self):
             # TODO: add confirmation dialog
-            sys.exit(app.exec_())
+            sys.exit(app.exec())
 
 
         char_role.currentIndexChanged.connect(updateRoleAbility)    
@@ -124,4 +127,4 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     char_sheet = CPCharSheet()
     char_sheet.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
